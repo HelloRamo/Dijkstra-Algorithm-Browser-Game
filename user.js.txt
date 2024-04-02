@@ -1,0 +1,160 @@
+
+
+let currentIndex = 0;
+let startingNode = 'A';
+
+function validateInput() {
+    const sortedKeys = Object.keys(pqStates);
+    if (currentIndex >= sortedKeys.length) {
+        currentIndex = sortedKeys.indexOf(startingNode);
+    }
+
+    const key = sortedKeys[currentIndex];
+    let userInput, userEntries, expectedState;
+    userInput = document.getElementById('inputf').value.toUpperCase().replace(/\s+/g, '');
+    // Methoden zur Angleichung der Eingabe und des erwarteten Zustands
+    userEntries = userInput
+        .toLowerCase()
+        .replace(/\s+/g, '')
+        .split(',')
+        .sort()
+        .join(',');
+
+    expectedState = pqStates[key]
+        .map(element => `${element.node.toLowerCase()}${element.distance}`)
+        .sort()
+        .join(',');
+
+    if (userEntries === expectedState) {
+
+        // Benutzereingabe > Array, sortieren und dann wieder in String umwandeln
+        userInput = userInput.split(',')
+            .sort((a, b) => {
+                // Extrahiert numerischen Werte und vergleicht sie
+                let numA = parseInt(a.slice(1));
+                let numB = parseInt(b.slice(1));
+
+                // Zahlen gleich > vergleichen Buchstaben
+                if (numA === numB) {
+
+                    return a[0].localeCompare(b[0]);
+                }
+
+                return numA - numB;
+            })
+            .join(',');
+
+        let userInputArray = userInput.split(',');
+
+        // Formatiert die Ausgabe
+        let letter = userInputArray[0].charAt(0);
+        let number = userInputArray[0].slice(1);
+        let output = `${letter}(${number})`;
+
+        // Formatiert die Benutzereingabe > Zahlenwerte in Klammern
+        let formattedUserInput = userInputArray.map(element => {
+            let letter = element.charAt(0);
+            let number = element.slice(1);
+            return `${letter}(${number})`;
+        }).join(',');
+
+        document.getElementById('priorityQueue' + (currentIndex + 1)).value = formattedUserInput;
+        document.getElementById('Element' + (currentIndex + 1)).value = output;
+
+        if (userInput.length === 2 || userInput.length === 3) {
+            alert('Glückwunsch! Dies war der letzte Knoten in der P.Q. und du hast alle kürzesten Distanzen bestimmt! Dijkstars Algorithmus wurde erfolgreich gelöst :-)!');
+        } else {
+            alert('Korrekt! Der Knoten mit der höchsten Priorität wird nun entnommen: ' + output + ' .Bitte gib nun die P.Q. für diesen Knoten ein!');
+        }
+
+        document.getElementById('inputf').value = ''; // Leerung des Eingabef. nach korrekter Eingabe
+        currentIndex++;
+    }
+    else {
+
+        alert('Bitte nochmal versuchen');
+        document.getElementById('inputf').value = '';
+
+    }
+}
+
+let nodeCountElement = document.getElementById('nodeCount');
+//überprüft ob Event.Listener schon einmal hinzugefügt wurde und setzt ihn nur einmal (true)
+if (!nodeCountElement.hasListener) {
+
+    /*event.target.value ist der aktuelle Wert des nodeCountElement. Dieser Wert wird in eine Ganzzahl umgewandelt 
+    und dann an die Funktionen createGraph, dijkstra, drawGraph und assignNewWeights übergeben.*/
+    nodeCountElement.addEventListener('change', function (event) {
+        const selectedNodeCount = parseInt(document.getElementById('nodeCount').value);
+        createGraph(selectedNodeCount);
+        dijkstra(graph, 'A', selectedNodeCount);
+        drawGraph(selectedNodeCount);
+        assignNewWeights(selectedNodeCount);
+
+        //Eingabefelder leeren bei Änderung der Knotenanzahl
+        for (let i = 1; i <= 13; i++) {
+            document.getElementById(`Element${i}`).value = '';
+            document.getElementById(`priorityQueue${i}`).value = '';
+        }
+
+        graph = {};
+        distances = {};
+        visited = {};
+        pq = new PriorityQueue();
+        shortestPaths = [];
+        pqStates = {};
+
+        let edgeExists = edges.some(edge => (edge.from === 'I' && edge.to === 'H') || (edge.from === 'H' && edge.to === 'I'));
+
+        if (this.value === '9' && !edgeExists) {
+            let edge = { from: 'I', to: 'H' };
+            drawConnection('I', 'H', '#8a8a8a', 1);
+
+            edges.push(edge);
+
+            let key = [edge.from, edge.to].sort().join('-');
+            weights[key] = Math.floor(Math.random() * 10) + 1;
+            edge.weight = weights[key];
+            drawWeight(edge.from, edge.to, edge.weight);
+        }
+    });
+
+    nodeCountElement.hasListener = true;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const selectedNodeCount = parseInt(document.getElementById('nodeCount').value);
+    createGraph(selectedNodeCount);
+    dijkstra(graph, 'A', selectedNodeCount);
+    drawGraph(selectedNodeCount);
+    assignNewWeights(selectedNodeCount);
+
+    document.getElementById('start').addEventListener('click', function () {
+        checkButton.addEventListener('click', validateInput);
+        const selectedNodeCount = parseInt(document.getElementById('nodeCount').value);
+        createGraph(selectedNodeCount);
+        dijkstra(graph, "A", selectedNodeCount);
+        validateInput(selectedNodeCount);
+    });
+
+    document.getElementById('inputf').addEventListener('click', function () {
+        validateInput();
+    });
+
+    document.getElementById('resetButton').addEventListener('click', function () {
+        location.reload();
+    });
+
+    const inputField = document.getElementById('inputf');
+    const checkButton = document.getElementById('start');
+
+    checkButton.addEventListener('click', validateInput);
+
+    inputField.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            validateInput();
+        }
+    });
+});

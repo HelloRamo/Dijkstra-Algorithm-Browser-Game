@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortest path Dijkstra algorithm by Ramo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="graph.js" defer></script>
+    <script src="dijkstra.js" defer></script>
+    <script src="user.js" defer></script>
+</head>
+
+<body>
+    <!-- Das ist ein Kommentar in HTML -->
+    <div id="mainContainer">
+        <canvas id="canvas" width="700" height="620"> </canvas>
+        <table id="distanceTable">
+            <tr>
+                <td>
+                    <h3>Dijkstra's Algorithm</h3>
+                    <div class="center-text">
+                        <p>Startknoten ist Knoten A! Eingabe der PQ-Elemente im Format "B11,C22, ... "</p>
+                        <p>Groß- und Kleinschreibung und auch die Reihenfolge der Eingabe ist egal!</p>
+                        <p>Ausgabe Knoten bei gleichen Kosten aus der P.Q. erfolgt alphabetisch!</p>
+                        <p>Seitenzoom und Slider rechts unten für richtige Darstellung!</p>
+                    </div>
+                    <table>
+            </tr>
+            <tr>
+                <th>Knoten/Kosten</th>
+                <th>Priority Queue</th>
+            </tr>
+            <tr>
+                <td>A(0)</td>
+                <td>
+                    <input type="text" id="priorityQueue1" placeholder="Priority Queue1">
+                </td>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="text" id="Element1" placeholder="node"></td>
+                <td>
+                    <input type="text" id="priorityQueue2" placeholder="Priority Queue2">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="text" id="Element2" placeholder="node"></td>
+                <td>
+                    <input type="text" id="priorityQueue3" placeholder="Priority Queue3">
+                </td>
+            </tr>
+            <tr>
+            <tr>
+                <td><input type="text" id="Element3" placeholder="node"></td>
+                <td>
+                    <input type="text" id="priorityQueue4" placeholder="Priority Queue4">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="text" id="Element4" placeholder="node"></td>
+                <td>
+                    <input type="text" id="priorityQueue5" placeholder="Priority Queue5">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="text" id="Element5" placeholder="node"></td>
+                <td>
+                    <input type="text" id="priorityQueue6" placeholder="Priority Queue6">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="text" id="Element6" placeholder="node"></td>
+                <td>
+                    <input type="text" id="priorityQueue7" placeholder="Priority Queue7">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="text" id="Element7" placeholder="node"></td>
+
+                <td>
+                    <input type="text" id="priorityQueue8" placeholder="Priority Queue8">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="text" id="Element8" placeholder="node"></td>
+
+                <td>
+                    <input type="text" id="priorityQueue9" placeholder="Priority Queue9">
+                </td>
+            </tr>
+
+            <tr>
+                <td><input type="text" id="Element9" placeholder="node"></td>
+                <td>
+                    <input type="text" id="priorityQueue10" placeholder="Priority Queue10">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="text" id="Element10" placeholder="node"></td>
+                <td>
+                    <input type="text" id="priorityQueue11" placeholder="Priority Queue11">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="text" id="Element11" placeholder="node"></td>
+                <td>
+                    <input type="text" id="priorityQueue12" placeholder="Priority Queue12">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="text" id="Element12" placeholder="node"></td>
+                <td>
+                    <input type="text" id="priorityQueue13" placeholder="Priority Queue13">
+                </td>
+            </tr>
+            <tr>
+                <td><input type="text" id="Element13" placeholder="node"></td>
+                <td>
+                    <input type="text" id="priorityQueue14" placeholder="Priority Queue14">
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            <input type="text" id="inputf" placeholder="Eingabefeld">
+            <br>
+            <button id="start" onclick="validateInput()">Start/Weiter</button>
+            <button id="resetButton">Neu Laden</button>
+            <br>
+        </div>
+
+        <label for="nodeCount" class="grosser-text">Anzahl der Knoten:</label>
+        <select id="nodeCount">
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+        </select>
+
+    </div>
+    <script>
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+body {
+    margin: 0;
+    justify-content: start;
+}
+
+#mainContainer {
+    display: flex;
+    justify-content: center;
+    /* Ausrichtung der Kinder am Anfang (links) */
+    position: relative;
+    /* oder 'absolute', je nach Bedarf */
+    top: 20px;
+    /* Verschiebt den Container 80px nach unten von seiner ursprünglichen Position */
+    align-items: start;
+    resize: both;
+    overflow: auto;
+}
+
+#canvas {
+    display: flex;
+    border: 1px solid black;
+    resize: both;
+    overflow: auto;
+}
+
+#distanceTable,
+#distanceTable th,
+#distanceTable td {
+    margin-bottom: 5px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 3px;
+}
+
+.table-container {
+    display: flex;
+    justify-content: flex-end;
+    /* Richtet den Inhalt (die Tabelle) am rechten Rand aus */
+}
+
+input[placeholder="node"] {
+    width: 55px;
+}
+
+input[placeholder="Distance"] {
+    width: 55px;
+}
+
+/* ^gillt dann für alle Felder PQ */
+input[placeholder^="Priority Queue"] {
+    width: 340px;
+}
+
+input[placeholder="Eingabefeld"] {
+    width: 340px;
+    text-align: center;
+    padding: 6px;
+    margin-left: 115px;
+}
+
+#start {
+    /*button*/
+    position: relative;
+    left: 230px;
+    top: 0px;
+    /* Anpassen, um die genaue Position festzulegen */
+    background-color: #4caf50;
+    /* Grün */
+    border: none;
+    color: white;
+    padding: 8px 13px;
+    text-align: right;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#resetButton {
+    position: relative;
+    left: 245px;
+    top: 0px;
+    /* Anpassen, um die genaue Position festzulegen */
+    background-color: #f44336;
+    /* Rot */
+    border: none;
+    color: white;
+    padding: 8px 13px;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#nodeCount {
+    position: relative;
+    top: -35px;
+    /* Negativer Wert, um das Element nach oben zu verschieben */
+    font-size: 14px;
+    color: #333;
+    padding: 4px;
+}
+
+label {
+    font-size: 24px;
+}
+
+.grosser-text {
+    position: relative;
+    top: -35px;
+    font-size: 18px;
+}
+
+.Seed-text {
+    position: relative;
+    top: 1px;
+    left: -30px;
+    font-size: 18px;
+}
+
+#seed {
+    position: relative;
+    top: 1px;
+    left: -30px;
+    font-size: 16px;
+    color: #333;
+    padding: 5px;
+    border: 2px solid #ccc;
+    border-radius: 2px;
+}
+
+h3 {
+    text-align: center;
+}
+
+.center-text {
+    text-align: center;
+}
