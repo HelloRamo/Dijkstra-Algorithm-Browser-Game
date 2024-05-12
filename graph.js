@@ -1,113 +1,150 @@
 
-
-let canvas = document.getElementById('canvas');
+let canvas = document.getElementById('canvas1');
 let ctx = canvas.getContext('2d');
+
 
 //canvas zentrieren
 let centerX = canvas.width / 2;
 let centerY = canvas.height / 2;
 
-let nodes = {
-    A: { x: 150, y: 300 },
-    B: { x: 250, y: 100 },
-    C: { x: 50, y: 150 },
-    D: { x: 380, y: 360 },
-    E: { x: 400, y: 200 },
-    F: { x: 350, y: 500 },
-    G: { x: 50, y: 450 },
-    H: { x: 550, y: 150 },
-    I: { x: 530, y: 450 },
-    J: { x: 650, y: 300 },
-    K: { x: 640, y: 390 },
-    L: { x: 630, y: 200 },
-    M: { x: 400, y: 60 },
-    N: { x: 470, y: 550 },
+const graphConfigurations = {
+    7: {
+        nodes: {
+            A: { x: 200, y: 200 },
+            B: { x: 150, y: 100 },
+            C: { x: 350, y: 100 },
+            D: { x: 375, y: 200 },
+            E: { x: 150, y: 300 },
+            F: { x: 350, y: 300 },
+            G: { x: 500, y: 200 }
+        },
+        edges: [
+            { from: 'A', to: 'B' },
+            { from: 'B', to: 'A' },
+            { from: 'A', to: 'E' },
+            { from: 'E', to: 'A' },
+            { from: 'A', to: 'D' },
+            { from: 'D', to: 'A' },
+            { from: 'B', to: 'C' },
+            { from: 'C', to: 'B' },
+            { from: 'C', to: 'D' },
+            { from: 'D', to: 'C' },
+            { from: 'C', to: 'G' },
+            { from: 'G', to: 'C' },
+            { from: 'E', to: 'F' },
+            { from: 'F', to: 'E' },
+            { from: 'D', to: 'G' },
+            { from: 'G', to: 'D' },
+            { from: 'D', to: 'F' },
+            { from: 'F', to: 'D' },
+            { from: 'F', to: 'G' },
+            { from: 'G', to: 'F' }
+        ]
+    },
+    8: {
+        nodes: {
+            A: { x: 200, y: 200 },
+            B: { x: 150, y: 100 },
+            C: { x: 350, y: 100 },
+            D: { x: 375, y: 200 },
+            E: { x: 150, y: 300 },
+            F: { x: 350, y: 300 },
+            G: { x: 500, y: 200 },
+            H: { x: 100, y: 200 },
+
+        },
+        edges: [
+            { from: 'A', to: 'B' },
+            { from: 'B', to: 'A' },
+            { from: 'A', to: 'C' },
+            { from: 'C', to: 'A' },
+            { from: 'A', to: 'E' },
+            { from: 'E', to: 'A' },
+            { from: 'A', to: 'D' },
+            { from: 'D', to: 'A' },
+            { from: 'B', to: 'C' },
+            { from: 'C', to: 'B' },
+            { from: 'C', to: 'D' },
+            { from: 'D', to: 'C' },
+            { from: 'C', to: 'G' },
+            { from: 'G', to: 'C' },
+            { from: 'E', to: 'F' },
+            { from: 'F', to: 'E' },
+            { from: 'D', to: 'G' },
+            { from: 'G', to: 'D' },
+            { from: 'D', to: 'F' },
+            { from: 'F', to: 'D' },
+            { from: 'F', to: 'G' },
+            { from: 'G', to: 'F' },
+            { from: 'H', to: 'B' },
+            { from: 'B', to: 'H' },
+            { from: 'H', to: 'E' },
+            { from: 'E', to: 'H' }
+        ]
+    },
+    9: {
+        nodes: {
+            A: { x: 200, y: 200 },
+            B: { x: 150, y: 100 },
+            C: { x: 350, y: 100 },
+            D: { x: 375, y: 200 },
+            E: { x: 150, y: 300 },
+            F: { x: 350, y: 300 },
+            G: { x: 475, y: 150 },
+            H: { x: 100, y: 200 },
+            I: { x: 475, y: 250 },
+        },
+        edges: [
+            { from: 'A', to: 'B' },
+            { from: 'B', to: 'A' },
+            { from: 'A', to: 'F' },
+            { from: 'F', to: 'A' },
+            { from: 'A', to: 'E' },
+            { from: 'E', to: 'A' },
+            { from: 'A', to: 'D' },
+            { from: 'D', to: 'A' },
+            { from: 'B', to: 'C' },
+            { from: 'C', to: 'B' },
+            { from: 'C', to: 'D' },
+            { from: 'D', to: 'C' },
+            { from: 'C', to: 'G' },
+            { from: 'G', to: 'C' },
+            { from: 'E', to: 'F' },
+            { from: 'F', to: 'E' },
+            { from: 'D', to: 'G' },
+            { from: 'G', to: 'D' },
+            { from: 'D', to: 'F' },
+            { from: 'F', to: 'D' },
+            { from: 'D', to: 'I' },
+            { from: 'I', to: 'D' },
+            { from: 'F', to: 'I' },
+            { from: 'I', to: 'F' },
+            { from: 'H', to: 'B' },
+            { from: 'B', to: 'H' },
+            { from: 'H', to: 'E' },
+            { from: 'E', to: 'H' },
+            { from: 'I', to: 'G' },
+            { from: 'G', to: 'I' }
+
+        ]
+    }
 };
 
-//ungerichteter Graph
-let edges = [
-    { from: 'A', to: 'B' },
-    { from: 'B', to: 'A' },
-    { from: 'B', to: 'M' },
-    { from: 'M', to: 'B' },
-    { from: 'A', to: 'C' },
-    { from: 'C', to: 'A' },
-    { from: 'A', to: 'F' },
-    { from: 'F', to: 'A' },
-    { from: 'F', to: 'N' },
-    { from: 'N', to: 'F' },
-    { from: 'B', to: 'C' },
-    { from: 'C', to: 'B' },
-    { from: 'B', to: 'E' },
-    { from: 'E', to: 'B' },
-    { from: 'B', to: 'H' },
-    { from: 'H', to: 'B' },
-    { from: 'H', to: 'M' },
-    { from: 'M', to: 'H' },
-    { from: 'B', to: 'F' },
-    { from: 'F', to: 'B' },
-    { from: 'C', to: 'G' },
-    { from: 'G', to: 'C' },
-    { from: 'E', to: 'D' },
-    { from: 'D', to: 'E' },
-    { from: 'D', to: 'H' },
-    { from: 'H', to: 'D' },
-    { from: 'F', to: 'D' },
-    { from: 'D', to: 'F' },
-    { from: 'E', to: 'H' },
-    { from: 'H', to: 'E' },
-    { from: 'F', to: 'G' },
-    { from: 'G', to: 'F' },
-    { from: 'F', to: 'I' },
-    { from: 'I', to: 'F' },
-    { from: 'I', to: 'N' },
-    { from: 'N', to: 'I' },
-    { from: 'J', to: 'I' },
-    { from: 'I', to: 'J' },
-    { from: 'H', to: 'J' },
-    { from: 'J', to: 'H' },
-    { from: 'J', to: 'K' },
-    { from: 'K', to: 'J' },
-    { from: 'I', to: 'K' },
-    { from: 'K', to: 'I' },
-    { from: 'H', to: 'L' },
-    { from: 'L', to: 'H' },
-    { from: 'J', to: 'L' },
-    { from: 'L', to: 'J' },
-    { from: 'I', to: 'H' },
-    { from: 'H', to: 'I' },
-];
-
+let nodes = {};
+let edges = [];
 let weights = {};
-//Zuweisung gleiche key und gleiche Werte Kanten zwischen 2 nodes
-edges.forEach(edge => {
-    let key = [edge.from, edge.to].sort().join('-');
-    if (!weights[key]) {
-        weights[key] = Math.floor(Math.random() * 10) + 1;
-    }
-    edge.weight = weights[key];
-});
 
-function assignNewWeights() {
-    weights = {};
-
-    edges.forEach(edge => {
-        let key = [edge.from, edge.to].sort().join('-');
-        weights[key] = Math.floor(Math.random() * 10) + 1;
-        edge.weight = weights[key];
-    });
-}
-
+// node = Zeichenobjekt
 function drawNode(node, color, label) {
     let position = nodes[node];
     ctx.beginPath();
-    ctx.arc(position.x, position.y, 15, 0, 2 * Math.PI, false);
+    ctx.arc(position.x, position.y, 20, 0, 2 * Math.PI, false);
     ctx.fillStyle = color;
     ctx.fill();
     ctx.lineWidth = 1;
     ctx.stroke();
     ctx.fillStyle = 'black';
-    ctx.font = '12px Arial';
+    ctx.font = '16px Arial';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(label, position.x, position.y);
@@ -143,6 +180,8 @@ function drawConnection(node1, node2, color, thickness) {
     ctx.stroke();
 }
 
+
+
 function drawWeight(node1, node2, weight) {
     const { x: x1, y: y1 } = nodes[node1];
     const { x: x2, y: y2 } = nodes[node2];
@@ -154,7 +193,6 @@ function drawWeight(node1, node2, weight) {
     ctx.textBaseline = 'middle';
     ctx.fillText(weight, midX, midY);
 }
-
 
 function drawGraph(selectedNodeCount) {
     let drawnEdges = {};        // Speichert bereits gezeichnete Kanten
@@ -170,7 +208,7 @@ function drawGraph(selectedNodeCount) {
             }
         }
     });
-
+    // zeichnet nodes von ASCII 65 (A) an bis selectenodecount
     Object.keys(nodes).forEach(node => {
         if (node.charCodeAt(0) - 65 < selectedNodeCount) {
             drawNode(node, 'white', node);
@@ -196,3 +234,79 @@ function createGraph(selectedNodeCount) {
         }
     }
 }
+
+function updateGraph() {
+    const selectedNodeCount = parseInt(document.getElementById('nodeCount').value);
+    const selectedConfiguration = graphConfigurations[selectedNodeCount];
+
+    nodes = selectedConfiguration.nodes;
+    edges = selectedConfiguration.edges;
+
+    //Zuweisung gleiche key und gleiche Werte Kanten zwischen 2 nodes
+    edges.forEach(edge => {
+        let key = [edge.from, edge.to].sort().join('-');
+        if (!weights[key]) {
+            weights[key] = Math.floor(Math.random() * 10) + 1;
+        }
+        edge.weight = weights[key];
+    });
+
+    drawGraph(selectedNodeCount);
+    createGraph(selectedNodeCount);
+}
+
+/////////////////////////////////* Zufällige Knoten + Gitterstruktur*/////////////////////////
+
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+const numLines = 5;
+const spacing = canvas.width / (numLines + 1);
+
+// Funktion zum Zeichnen des Gitters
+function drawGrid() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 1; i <= numLines; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * spacing, 0);
+        ctx.lineTo(i * spacing, canvas.height);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(0, i * spacing);
+        ctx.lineTo(canvas.width, i * spacing);
+        ctx.stroke();
+    }
+}
+
+// Funktion zum Zeichnen der Knoten
+function drawNodes(numNodes) {
+    const letters = 'ABCDEFGHIJKLMN';
+    let points = [];
+    for (let i = 1; i <= numLines; i++) {
+        for (let j = 1; j <= numLines; j++) {
+            points.push({ x: i * spacing, y: j * spacing });
+        }
+    }
+
+    // Wähle zufällige Punkte aus
+    for (let i = 0; i < numNodes; i++) {
+        let pointIndex = Math.floor(Math.random() * points.length);
+        let point = points.splice(pointIndex, 1)[0];  // graphisches element
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 4, 0, 2 * Math.PI);
+        ctx.fillStyle = 'black';
+        ctx.fill();
+        // Beschriftung der Knoten
+        ctx.font = '24px Arial';
+        ctx.fillStyle = 'red';
+        ctx.fillText(letters[i], point.x, point.y - 20);
+    }
+}
+
+// Event-Listener für den Button
+document.getElementById('rndnodes').addEventListener('click', function () {
+    drawGrid();
+    const numNodes = Math.floor(Math.random() * (14 - 7 + 1)) + 7;
+    drawNodes(numNodes);
+});
+
+// Zeichne das Gitter beim Laden der Seite
+drawGrid();

@@ -1,4 +1,6 @@
 
+let canvas2 = document.getElementById('canvas2');
+let ctx2 = canvas2.getContext('2d');
 
 
 const inputField = document.getElementById('inputf');
@@ -9,6 +11,59 @@ inputField.addEventListener('keydown', function (event) {
         validateInput();
     }
 });
+
+function drawMessage(message, color) {
+    ctx2.clearRect(0, 0, canvas.width, canvas.height);
+    ctx2.fillStyle = color;
+    ctx2.font = '18px Arial';
+
+    // Split the message into lines
+    const lines = message.split('\n');
+    let yOffset = 30; // Initial vertical position
+    const lineHeight = 26; // Height of each line, adjust as needed
+
+    // Draw each line separately
+    lines.forEach((line) => {
+        ctx2.fillText(line, 10, yOffset);
+        yOffset += lineHeight; // Move to the next line position
+    });
+}
+
+let showExpectedStateCount = 0;
+function showExpectedState() {
+
+    if (showExpectedStateCount >= 3) {
+        document.getElementById("expectedStateButton").disabled = true;
+
+        const message = "Alle Hilfen wurden aufgebraucht. Versuche es nun selbst!";
+        drawMessage(message, 'red');
+
+        return;
+    }
+
+    const remainingUses = 3 - showExpectedStateCount;
+
+    const sortedKeys = Object.keys(pqStates);
+    if (currentIndex >= sortedKeys.length) {
+        currentIndex = sortedKeys.indexOf(startingNode);
+    }
+
+    const key = sortedKeys[currentIndex];
+    let expectedState = pqStates[key]
+        .map(element => `${element.node}${element.distance}`)
+        .sort()
+        .join(', ');
+
+    let message = `Die P.Q. für Knoten ${key} lautet: ${expectedState}.\n\nVerbleibende Nutzungen der Hilfe: ${remainingUses}.\n\nDie nächste Eingabe klappt bestimmt wieder ohne Hilfe! :-)`;
+
+    if (remainingUses === 0) {
+        message += "\nAlle Hilfen wurden aufgebraucht.";
+    }
+
+    drawMessage(message, 'red');
+
+    showExpectedStateCount++;
+}
 
 let currentIndex = 0;
 let startingNode = 'A';
@@ -34,6 +89,7 @@ function validateInput() {
         .map(element => `${element.node.toLowerCase()}${element.distance}`)
         .sort()
         .join(',');
+
 
     if (userEntries === expectedState) {
 
@@ -61,7 +117,6 @@ function validateInput() {
         let number = userInputArray[0].slice(1);
         let output = `${letter}(${number})`;
 
-        // Formatiert die Benutzereingabe > Zahlenwerte in Klammern
         let formattedUserInput = userInputArray.map(element => {
             let letter = element.charAt(0);
             let number = element.slice(1);
@@ -71,23 +126,35 @@ function validateInput() {
         document.getElementById('priorityQueue' + (currentIndex + 1)).value = formattedUserInput;
         document.getElementById('Element' + (currentIndex + 1)).value = output;
 
+        drawMessage(`Element ${currentIndex + 1}: ${output}`, 'black');
+
         if (userInput.length === 2 || userInput.length === 3) {
-            alert('Glückwunsch! Dies war der letzte Knoten in der P.Q. und du hast alle kürzesten Distanzen bestimmt! Dijkstars Algorithmus wurde erfolgreich gelöst :-)!');
+            drawMessage('Glückwunsch! Dies war der letzte Knoten in der Priority Queue und du hast alle kürzesten Distanzen bestimmt!\n Dijkstras Algorithmus wurde erfolgreich gelöst! :-)', 'green');
         } else {
-            alert('Korrekt! Der Knoten mit der höchsten Priorität wird nun entnommen: ' + output + ' .Bitte gib nun die P.Q. für diesen Knoten ein!');
+            drawMessage(`Korrekt! Der Knoten mit der höchsten Priorität wird nun entnommen: ${output}.\n Bitte gib nun die Priority Queue für diesen Knoten ein!`, 'blue');
         }
 
-        document.getElementById('inputf').value = ''; // Leerung des Eingabef. nach korrekter Eingabe
+        document.getElementById('inputf').value = ''; // Leerung des Eingabefelds nach korrekter Eingabe
         currentIndex++;
-    }
-    else {
-
-        alert('Bitte nochmal versuchen');
-        document.getElementById('inputf').value = '';
-
+    } else {
+        drawMessage('Die Eingabe war nicht korrekt! Bitte versuche es nochmal!\n\nDu kannst dir per "Hilf mir" Button die korrekte Antwort anzeigen lassen!\n\nDies geht aber nur 3 mal pro Spiel!\n\nSetze ihn Weise ein :-)', 'red');
     }
 }
 
+const longText = "Willkommen bei Dijkstras Algorithmus welcher aus der Vorlesung bereits\nbekannt sein sollte.\nDazu muss die Priority Queue aller Knoten ausgehend vom Startknoten A \nin das Eingabefeld eingegeben werden. Die Eingabe muss im Format B11,c12, ...\nerfolgen, Groß- und Kleinschreibung und auch Reihenfolge der Eingabe ist egal!\nBei gleichen Kosten der Knoten wird alphabetisch entschieden!\n\nViel Spass und gutes Gelingen :-)";
+
+document.getElementById("nodeCount").addEventListener("change", function () {
+    if (this.value === "7") {
+        drawMessage(longText, "black");
+    } else {
+        // Clear the canvas if a different value is selected
+        const canvas2 = document.getElementById("canvas2");
+        const ctx2 = canvas2.getContext("2d");
+        ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+    }
+});
+
+drawMessage(longText, "black");
 let nodeCountElement = document.getElementById('nodeCount');
 
 nodeCountElement.addEventListener('change', function () {
@@ -95,25 +162,16 @@ nodeCountElement.addEventListener('change', function () {
     createGraph(selectedNodeCount);
     dijkstra(graph, 'A', selectedNodeCount);
     drawGraph(selectedNodeCount);
-    assignNewWeights(selectedNodeCount);
+
+    const nodeCount = parseInt(this.value);
+
+    const edges = graphConfigurations[nodeCount].edges; // Für vordefinierte Kanten
+    createGraph(nodes, edges);
 
     // Clear input fields when node count changes
     for (let i = 1; i <= 13; i++) {
         document.getElementById(`Element${i}`).value = '';
         document.getElementById(`priorityQueue${i}`).value = '';
-    }
-
-
-
-    // Add edge between nodes 'I' and 'H' if node count is 9 and the edge doesn't exist
-    if (selectedNodeCount === 9 && !edges.some(edge => (edge.from === 'I' && edge.to === 'H') || (edge.from === 'H' && edge.to === 'I'))) {
-        let edge = { from: 'I', to: 'H' };
-        drawConnection('I', 'H', '#8a8a8a', 1);
-        edges.push(edge);
-        let key = [edge.from, edge.to].sort().join('-');
-        weights[key] = Math.floor(Math.random() * 10) + 1;
-        edge.weight = weights[key];
-        drawWeight(edge.from, edge.to, edge.weight);
     }
 });
 

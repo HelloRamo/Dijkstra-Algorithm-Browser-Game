@@ -1,7 +1,5 @@
 
 
-// Jetzt können Sie auf 'graph' zugreifen
-console.log(graph);
 class PriorityQueue {
     constructor() {
         this.heap = [];
@@ -157,10 +155,11 @@ function dijkstra(nodes, startNode, selectedNodeCount) {
 
 
 const selectedNodeCount = parseInt(document.getElementById('nodeCount').value);
-createGraph(selectedNodeCount);
+document.getElementById('nodeCount').addEventListener('change', updateGraph);
+updateGraph();
 dijkstra(graph, 'A', selectedNodeCount);
-drawGraph(selectedNodeCount);
-assignNewWeights(selectedNodeCount);
+
+
 
 
 

@@ -1,135 +1,182 @@
 body {
     margin: 0;
-    justify-content: start;
+    border: 0px solid #ccc;
+    /* background-image: url("karte.jpg");
+    /* Setzt ein Hintergrundbild */
 }
 
 #mainContainer {
-    display: flex;
-    justify-content: center;
-    /* Ausrichtung der Kinder am Anfang (links) */
     position: relative;
-    /* oder 'absolute', je nach Bedarf */
     top: 20px;
-    /* Verschiebt den Container 80px nach unten von seiner ursprünglichen Position */
-    align-items: start;
-    resize: both;
-    overflow: auto;
+    width: 80%;
+    margin: 0 auto;
 }
 
-#canvas {
-    display: flex;
-    border: 1px solid black;
-    resize: both;
-    overflow: auto;
+#canvas1,
+#canvas2 {
+    position: absolute;
+    display: block;
+    border: 1px solid #000000;
+    left: 0;
+
 }
 
-#distanceTable,
-#distanceTable th,
-#distanceTable td {
-    margin-bottom: 5px;
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 3px;
+#canvas1 {
+    background-color: #f0f0f0;
+    /* Setzt die Hintergrundfarbe des ersten Canvas auf hellgrau */
 }
 
-.table-container {
-    display: flex;
-    justify-content: flex-end;
-    /* Richtet den Inhalt (die Tabelle) am rechten Rand aus */
+#canvas2 {
+    top: 470px;
+    background-color: #fafafa;
+    /* Setzt die Hintergrundfarbe des zweiten Canvas auf sehr helles Grau */
 }
 
-input[placeholder="node"] {
-    width: 55px;
+#distanceTable {
+    margin-left: 800px;
+    align-self: start;
 }
 
-input[placeholder="Distance"] {
-    width: 55px;
-}
 
-/* ^gillt dann für alle Felder PQ */
-input[placeholder^="Priority Queue"] {
-    width: 340px;
-}
-
-input[placeholder="Eingabefeld"] {
+input[id="inputf"] {
+    font-size: 18px;
+    margin-left: -10px;
+    align-self: start;
     width: 340px;
     text-align: center;
     padding: 6px;
-    margin-left: 115px;
+}
+
+/*Eingaben Formatierung*/
+.input-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
 }
 
 #start {
-    /*button*/
     position: relative;
-    left: 230px;
-    top: 0px;
-    /* Anpassen, um die genaue Position festzulegen */
     background-color: #4caf50;
-    /* Grün */
     border: none;
     color: white;
     padding: 8px 13px;
-    text-align: right;
+
+    text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
 }
 
 #resetButton {
     position: relative;
-    left: 245px;
-    top: 0px;
-    /* Anpassen, um die genaue Position festzulegen */
     background-color: #f44336;
-    /* Rot */
     border: none;
     color: white;
     padding: 8px 13px;
-    text-align: left;
+    text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
+}
+
+#expectedStateButton {
+    position: relative;
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 8px 13px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    left: -220px;
+    top: 45px;
+
+}
+
+
+#rndnodes {
+    position: relative;
+    background-color: #4CAF50;
+    /* Setzt die Hintergrundfarbe auf grün */
+    color: white;
+    /* Setzt die Textfarbe auf weiß */
+    padding: 8px 13px;
+    /* Setzt das Padding um den Text */
+    text-align: center;
+    /* Zentriert den Text */
+    text-decoration: none;
+    /* Entfernt die Unterstreichung */
+
+    /* Macht den Button zu einem inline-block Element */
+    font-size: 16px;
+    /* Setzt die Schriftgröße */
+    border: none;
+    /* Setzt den Rand um den Button */
+    cursor: pointer;
+    /* Ändert den Cursor zu einem Zeiger, wenn er über den Button fährt */
+    left: -220px;
+    top: 45px;
 }
 
 #nodeCount {
     position: relative;
-    top: -35px;
-    /* Negativer Wert, um das Element nach oben zu verschieben */
+    top: -65px;
+    margin-left: 980px;
     font-size: 14px;
     color: #333;
     padding: 4px;
 }
 
 label {
-    font-size: 24px;
-}
-
-.grosser-text {
     position: relative;
-    top: -35px;
     font-size: 18px;
-}
-
-.Seed-text {
-    position: relative;
-    top: 1px;
-    left: -30px;
-    font-size: 18px;
-}
-
-#seed {
-    position: relative;
-    top: 1px;
-    left: -30px;
-    font-size: 16px;
+    top: -43px;
+    margin-left: 860px;
     color: #333;
     padding: 5px;
-    border: 2px solid #ccc;
-    border-radius: 2px;
+}
+
+#outer {
+    position: relative;
+    width: 100%;
+    left: 1050px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+#outer button,
+#outer select {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+}
+
+td,
+th {
+    border: 1px solid #ddd;
+    /* Fügt einen dünnen Rand um jede Zelle hinzu */
+    padding: 8px;
+    /* Fügt Polsterung innerhalb der Zellen hinzu */
+}
+
+th {
+    background-color: #f2f2f2;
+    /* Hintergrundfarbe für Kopfzeilen */
+    text-align: left;
+    /* Ausrichtung des Textes in Kopfzeilen */
+}
+
+input[id^="Element"] {
+    width: 55px;
+}
+
+
+/* ^gillt dann für alle Felder PQ */
+input[id^="priorityQueue"] {
+    width: 340px;
 }
 
 h3 {
@@ -138,4 +185,56 @@ h3 {
 
 .center-text {
     text-align: center;
+}
+
+/* Tabs*/
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: 1px solid;
+    outline: none;
+    cursor: pointer;
+    padding: 20px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 20px 12px;
+    border: none #ccc;
+    border-top: none;
+}
+
+.tabcontent {
+    animation: fadeEffect 1s;
+    /* Fading effect takes 1 second */
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
