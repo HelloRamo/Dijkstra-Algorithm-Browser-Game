@@ -56,11 +56,12 @@ The Dijkstra algorithm is a well-known algorithm for determining the shortest pa
 ## Code structure
 
 dijkstra-webapp/
-│
+├── Dijkstra_Webapp_F2P # all .js and .html .css in ONE html # just click and play
 ├── index.html # Main file of the web application
+├── dijkstra.js # class Priority Queue and dijkstra Algorithm
+├── graph.js # drawing and visuals
+├── user.js # User interaction and validation 
 ├── style.css # Stylesheet for designing the user interface
-├── script.js # JavaScript file with the implementation of the Dijkstra algorithm
-├── assets/ # Directory for images and other static resources
 │ └── hshl-logo.png # Example image, can be replaced by other images
 └── README.md # This README file
 
